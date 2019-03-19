@@ -8,7 +8,7 @@ def get_amins_plot(frame_grouped, nawba, nawba_centones):
     this_frame = frame_grouped[(frame_grouped['nawba'] == nawba) & (frame_grouped['pattern'].isin(relevant_patterns))].sort_values(by='tf-idf', ascending=False)
     plt.xticks(rotation=60)
     plt.title('{}, Amins Centones'.format(nawba.replace('_',' ')))
-    plt.ylabel('Avertage tf-idf')
+    plt.ylabel('Average tf-idf')
     plt.xlabel('Centone')
     p = plt.bar(this_frame['pattern'], this_frame['tf-idf'])
     return plt
