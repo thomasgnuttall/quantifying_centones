@@ -67,7 +67,7 @@ def get_top_centones_plot(frame_grouped, nawba, nawba_centones, scores_in_nawba,
                     Line2D([0], [0], color='black', lw=4)]
     ax.legend(
         custom_boxes, 
-        ['New pattern', 'Amins Pattern', 'Superstring of Amins pattern', 'Average Frequency per recording in nawba']
+        ['New pattern', 'Amins Pattern', 'Superstring of Amins pattern', 'Average frequency per recording in nawba']
     )
 
     # Example data
