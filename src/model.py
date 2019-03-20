@@ -49,15 +49,23 @@ def average_tfidf(distributions, indices):
         Dataframe of average tf-idf across recordings of the same nawba
         ...[nawba, pattern, tf-idf, frequency]
     """
+    frame = zip_nawba(distributions, indices)
+    frame_grouped = frame.groupby(['index', 'pattern'])\
+                         .agg({'tf-idf': 'mean', 'frequency': 'sum'})\
+                         .reset_index()
+    return frame_grouped
+
+
+def zip_nawba(distributions, indices):
+    """
+    Convert distributions output to DF
+    """
     zip_nawba = [
         [(n,x,y,z) for x,y,z in d] \
         for n,d in zip(indices, distributions)
     ]
     frame = pd.DataFrame(
         [y for x in zip_nawba for y in x],
-        columns=['nawba', 'pattern', 'tf-idf', 'frequency']
+        columns=['index', 'pattern', 'tf-idf', 'frequency']
     )
-    frame_grouped = frame.groupby(['nawba', 'pattern'])\
-                         .agg({'tf-idf': 'mean', 'frequency': 'sum'})\
-                         .reset_index()
-    return frame_grouped
+    return frame

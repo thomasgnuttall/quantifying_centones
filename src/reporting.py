@@ -5,7 +5,7 @@ def get_amins_plot(frame_grouped, nawba, nawba_centones):
     Plot distribution from <frame_grouped> for <nawba> that are in <nawba_centones>[<nawba>]
     """
     relevant_patterns = nawba_centones[nawba]
-    this_frame = frame_grouped[(frame_grouped['nawba'] == nawba) & (frame_grouped['pattern'].isin(relevant_patterns))].sort_values(by='tf-idf', ascending=False)
+    this_frame = frame_grouped[(frame_grouped['index'] == nawba) & (frame_grouped['pattern'].isin(relevant_patterns))].sort_values(by='tf-idf', ascending=False)
     plt.xticks(rotation=60)
     plt.title('{}, Amins Centones'.format(nawba.replace('_',' ')))
     plt.ylabel('Average tf-idf')
@@ -21,7 +21,7 @@ def get_top_centones_plot(frame_grouped, nawba, nawba_centones, n=10):
     Bars marked red are centones that are superstrings of <nawba_centones>[<nawba>]
     Bars marked blue are centones not specified in lookup tables
     """ 
-    this_frame = frame_grouped[(frame_grouped['nawba'] == nawba)].sort_values(by='tf-idf', ascending=False)[:n]
+    this_frame = frame_grouped[(frame_grouped['index'] == nawba)].sort_values(by='tf-idf', ascending=False)[:n]
     these_patterns = this_frame['pattern']
     plt.figure(figsize=(13,10))
     plt.xticks(rotation=90)
