@@ -77,6 +77,7 @@ target/
 
 # exclude score data from source control by default
 /data/scores/
+/plots/
 
 # Mac OS-specific storage files
 .DS_Store
