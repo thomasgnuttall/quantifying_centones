@@ -69,3 +69,25 @@ def zip_nawba(distributions, indices):
         columns=['index', 'pattern', 'tf-idf', 'frequency']
     )
     return frame
+
+def centones_counter_predictor(mbid,df,number_centones_xnawba):
+	"""
+    Counting the number of centones of a nawba in a score, predict the nawba.
+    mbid: mbid of the required score
+    df: dataframe obtained from the function zip_nawba() and the distributions of IT-IDF
+    number_centones_xnawba: dictionary with the nawba and the number of centones for each nawba
+    """
+    sub_df = df.loc[df['index'] == mbid]
+    nawba_and_centones = []
+    for nawba in nawba_centones:
+        centones_totales=0
+        for centon in nawba_centones[nawba]:
+            x = sub_df.loc[sub_df['pattern'] == centon]
+            if not (x.empty): 
+                centones_totales += x['frequency'].iloc[0]
+        nawba_and_centones.append([nawba,centones_totales])
+    nawba_and_centones = [[x[0],x[1]/number_centones_xnawba[x[0]]] for x in nawba_and_centones]
+    nawba_and_centones = sorted(nawba_and_centones, key=itemgetter(1))
+    predicted = nawba_and_centones[-1][0]
+    return predicted
+
