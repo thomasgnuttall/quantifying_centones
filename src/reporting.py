@@ -80,7 +80,7 @@ def get_top_centones_plot(frame_grouped, nawba, nawba_centones, scores_in_nawba,
     ax.invert_yaxis()  # labels read top-to-bottom
 
     # Labels
-    plt.title('{}, Top Ranked Patterns'.format(nawba_string), size=18)
+    plt.title('{}, Top {} Patterns'.format(nawba_string, n), size=18)
     plt.xlabel('Average tf-idf', size=14)
     plt.ylabel('Pattern', size=14)
 
