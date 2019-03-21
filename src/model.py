@@ -9,7 +9,8 @@ def get_tfidf_distributions(all_recordings):
     Returns:
         list, each elecment a recording, summarised as a list of (pattern, tf-idf, total_count_of_pattern)
     """
-    vectorizer = TfidfVectorizer(lowercase=False, sublinear_tf=True)
+    token_pattern = '[A-a#-]*'
+    vectorizer = TfidfVectorizer(lowercase=False, sublinear_tf=True, token_pattern=token_pattern)
     X = vectorizer.fit_transform(all_recordings)
     top_patterns = []
     sorted_vocab = sorted([(k,v) for k,v in vectorizer.vocabulary_.items()], key=lambda y: y[1])
