@@ -107,11 +107,11 @@ def get_top_centones_plot(frame_grouped, nawba, nawba_centones, scores_in_nawba,
         if any([x == pat for x in nawba_centones[nawba]]):
             bars[i].set_color(amin_bar_colour)
             bars[i].set_edgecolor(bar_edge_colour)
-            print('\\textbf{'+pat+'},', end=" ")
+            #print('\\textbf{'+pat+'},', end=" ")
         elif any([x in pat for x in nawba_centones[nawba]]):
             bars[i].set_color(super_amin_bar_colour)
             bars[i].set_edgecolor(bar_edge_colour)
-            print('\\textit{'+pat+'},', end=" ")
+            #print('\\textit{'+pat+'},', end=" ")
         else:
             print(pat+',', end=" ")
     return plt
