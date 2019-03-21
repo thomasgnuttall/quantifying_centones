@@ -18,7 +18,12 @@ def get_amins_plot(frame_grouped, nawba, nawba_centones):
     return plt
 
 
-def get_top_centones_plot(frame_grouped, nawba, nawba_centones, scores_in_nawba, height=12, width=10, n=10):
+def string_set(string_list):
+    return set(i for i in string_list 
+               if not any(i in s for s in string_list if i != s))
+
+
+def get_top_centones_plot(frame_grouped, nawba, nawba_centones, scores_in_nawba, height=12, width=10, n=20, min_freq=10):
     """
     Plot top <n> centones for <nawba> in <frame_grouped>
 
@@ -41,8 +46,16 @@ def get_top_centones_plot(frame_grouped, nawba, nawba_centones, scores_in_nawba,
     amin_bar_colour = '#ccebc5'
     super_amin_bar_colour = '#fbb4ae'
 
-    this_frame = frame_grouped[(frame_grouped['index'] == nawba)]\
+    # Apply selection rules
+    this_nawba = frame_grouped[(frame_grouped['index'] == nawba)]
+    this_nawba = this_nawba[this_nawba['frequency']/scores_in_nawba > min_freq]
+    this_frame = this_nawba.loc[~this_nawba['pattern'].apply(lambda y: len(set(y)) == 1)]\
                  .sort_values(by='tf-idf', ascending=False)[:n]
+
+    top_patterns = sorted(this_frame['pattern'])
+    top_patterns_filt = string_set(top_patterns)
+
+    this_frame = this_frame[this_frame['pattern'].isin(top_patterns_filt)]
 
     patterns = this_frame['pattern']
     tfidf = this_frame['tf-idf']
@@ -88,14 +101,17 @@ def get_top_centones_plot(frame_grouped, nawba, nawba_centones, scores_in_nawba,
     # Annotate with frequency
     for i, t in enumerate(tfidf):
         ax.text(t + max_tfidf/400, i + .25, str(frequencies[i]), color='black')
-
+    
     # Colour bars as per amins centones
     for i, pat in enumerate(patterns):
         if any([x == pat for x in nawba_centones[nawba]]):
             bars[i].set_color(amin_bar_colour)
             bars[i].set_edgecolor(bar_edge_colour)
+            print('\\textbf{'+pat+'},', end=" ")
         elif any([x in pat for x in nawba_centones[nawba]]):
             bars[i].set_color(super_amin_bar_colour)
             bars[i].set_edgecolor(bar_edge_colour)
-
+            print('\\textit{'+pat+'},', end=" ")
+        else:
+            print(pat+',', end=" ")
     return plt
