@@ -8,6 +8,4 @@ A walkthrough of the code can be found in notebook/quantifying_centones.ipynb
 
 Requires: https://github.com/MTG/pycompmusic
 
-ISMIR paper:
-
-http://mtg.upf.edu/node/3958
+ISMIR paper: http://mtg.upf.edu/node/3958
